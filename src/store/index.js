@@ -25,6 +25,21 @@ export default createStore({
       } catch (error) {
         console.error(error);
       }
+    },
+
+    filterByStatus({ commit, state }, status) {
+      const results = state.characters.filter(c => c.status.includes(status));
+      commit('setCharactersFilter', results);
+    },
+
+    filterByName({ commit, state }, name) {
+      const formatName = name.toLowerCase();
+      const results = state.characters.filter(c => {
+        const cName = c.name.toLowerCase();
+        if (cName.includes(formatName))
+          return c;
+      });
+      commit('setCharactersFilter', results);
     }
   },
   modules: {
